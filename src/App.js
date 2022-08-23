@@ -8,6 +8,7 @@ function App() {
 
   const [dice, setDice] = useState(allNewDice())
   const [tenzies, setTenzies] = useState(false)
+  const [rolls, setRolls] = useState(0)
 
   /**
  * Challenge: Check the dice array for these winning conditions:
@@ -50,6 +51,7 @@ function App() {
 
 
   function rollDice() {
+    setRolls(rolls + 1)
     setDice(oldDice => oldDice.map(die => {
       return die.isHeld ?
         die :
@@ -68,6 +70,7 @@ function App() {
   function newGame() {
     setDice(allNewDice())
     setTenzies(false)
+    setRolls(0)
   }
 
   const dieElements = dice.map(die => (
@@ -81,6 +84,7 @@ function App() {
 
   return (
     <main>
+      <div className='counter'><span className='counter--tag'>Counter:</span>{rolls}</div>
       {tenzies && <Confetti width="320px" height="320px"/>}
       <div className='title'>
         {tenzies ? <h1>You Won!</h1> : <h1>Tenzies</h1>}

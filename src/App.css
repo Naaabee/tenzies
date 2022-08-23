@@ -37,6 +37,21 @@ button:active {
   box-shadow: inset 5px 5px 10px -3px rgba(0, 0, 0, 0.7);
 }
 
+.counter {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  position: absolute;
+  left: 270px;
+  top: 15px;
+  font-size: 1.25rem;
+  font-family: 'Karla';
+}
+
+.counter--tag {
+  font-size: 10px;
+}
+
 .title {
   max-width: 240px;
   text-align: center;

@@ -1,25 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import './App.css';
 import Die from './Die';
 import { nanoid } from 'nanoid'
 import Confetti from 'react-confetti'
+import { useStopwatch } from 'react-timer-hook';
 
 function App() {
 
   const [dice, setDice] = useState(allNewDice())
   const [tenzies, setTenzies] = useState(false)
   const [rolls, setRolls] = useState(0)
-
-  /**
- * Challenge: Check the dice array for these winning conditions:
- * 1. All dice are held, and
- * 2. all dice have the same value
- * 
- * If both conditions are true, set `tenzies` to true and log
- * "You won!" to the console
- */
-
-
+  const {
+    seconds,
+    minutes,
+    start,
+    pause,
+    reset,
+  } = useStopwatch({ autoStart: false });
+  const [timer, setTimer] = useState(start)
+  
 
   useEffect(() => {
     const allHeld = dice.every(die => die.isHeld)
@@ -28,6 +27,7 @@ function App() {
 
     if (allHeld && allDice) {
       setTenzies(prevState => !prevState)
+      setTimer(pause)
       console.log("You Won")
     }
   }, [dice])
@@ -67,10 +67,12 @@ function App() {
     }))
   }
 
+
   function newGame() {
     setDice(allNewDice())
     setTenzies(false)
     setRolls(0)
+    setTimer(reset)
   }
 
   const dieElements = dice.map(die => (
@@ -82,10 +84,15 @@ function App() {
     />)
   )
 
+  
+
   return (
     <main>
+      <div className='timer'>
+        <span>{minutes}m</span>:<span>{seconds}s</span>
+      </div>
       <div className='counter'><span className='counter--tag'>Counter:</span>{rolls}</div>
-      {tenzies && <Confetti width="320px" height="320px"/>}
+      {tenzies && <Confetti width="320px" height="320px" />}
       <div className='title'>
         {tenzies ? <h1>You Won!</h1> : <h1>Tenzies</h1>}
         <p>Roll until all dice are the same. Click each die to freeze it as its current value between rolls.</p>

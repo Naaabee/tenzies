@@ -9,3 +9,6 @@ There's a total of 10 Dice, roll until all dice are the same. Click each die to 
 ![my design](src/images/my-design.png)
 - Counter added
 - Timer added
+
+### Live Site
+https://effulgent-moxie-c4eebc.netlify.app

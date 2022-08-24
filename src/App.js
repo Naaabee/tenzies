@@ -78,6 +78,7 @@ function App() {
     setTenzies(false)
     setRolls(0)
     setTimer(reset)
+    console.log(timer)
   }
 
   const dieElements = dice.map(die => (
@@ -89,7 +90,7 @@ function App() {
     />)
   )
 
-  console.log(timer)
+  
 
   return (
     <main>

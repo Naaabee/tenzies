@@ -18,7 +18,7 @@ function App() {
     reset,
   } = useStopwatch({ autoStart: false });
   const [timer, setTimer] = useState(start)
-  
+
 
   useEffect(() => {
     const allHeld = dice.every(die => die.isHeld)
@@ -27,10 +27,16 @@ function App() {
 
     if (allHeld && allDice) {
       setTenzies(prevState => !prevState)
-      setTimer(pause)
+      // setTimer(pause)
       console.log("You Won")
     }
   }, [dice])
+
+  useEffect(() => {
+    if (tenzies) {
+      setTimer(pause)
+    }
+  }, [tenzies, pause])
 
 
   function createNewDice() {
@@ -67,7 +73,6 @@ function App() {
     }))
   }
 
-
   function newGame() {
     setDice(allNewDice())
     setTenzies(false)
@@ -84,22 +89,26 @@ function App() {
     />)
   )
 
-  
+  console.log(timer)
 
   return (
     <main>
       <div className='timer'>
         <span>{minutes}m</span>:<span>{seconds}s</span>
       </div>
+
       <div className='counter'><span className='counter--tag'>Counter:</span>{rolls}</div>
       {tenzies && <Confetti width="320px" height="320px" />}
+      
       <div className='title'>
         {tenzies ? <h1>You Won!</h1> : <h1>Tenzies</h1>}
         <p>Roll until all dice are the same. Click each die to freeze it as its current value between rolls.</p>
       </div>
+
       <div className='dice--container'>
         {dieElements}
       </div>
+
       <button onClick={tenzies ? newGame : rollDice}>{tenzies ? "New Game" : "Roll"}</button>
     </main>
   );
